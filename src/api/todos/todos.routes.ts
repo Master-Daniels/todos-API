@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-import { Todo } from './todos.model';
+import { Todos, TodoWithId } from './todos.model';
 
 import MesssageResponse from '../../interfaces/MessageResponse';
 
@@ -8,18 +8,16 @@ const router = Router();
 
 interface TodoResponse extends MesssageResponse {
   length: number;
-  data: Todo[];
+  data: TodoWithId[];
 }
 
-router.get('/', (request: Request, response: Response<TodoResponse>) => {
+router.get('/', async (request: Request, response: Response<TodoResponse>) => {
+  const result = await Todos.find({}).toArray();
   response.json({
     status: 'OK',
     message: 'Successful',
-    length: 2,
-    data: [
-      { content: 'First todo on the list', done: false },
-      { content: 'Learn Typescript', done: Boolean('on-going') },
-    ],
+    length: result.length,
+    data: result,
   });
 });
 

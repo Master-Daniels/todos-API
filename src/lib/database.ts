@@ -1,13 +1,12 @@
 import { MongoClient } from 'mongodb';
 
-const connectionString: string = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todos';
+// const connectionString: string = process.env.MONGO_URI || '';
 
-let cachedClient = null;
+let cachedClient: MongoClient | null = null;
 
 if (!cachedClient) {
-  const client = new MongoClient(connectionString);
-  cachedClient = client;
+  cachedClient = new MongoClient('mongodb://127.0.0.1:27017');
 }
-const db = cachedClient.db();
+const db = cachedClient.db('todosDB');
 
-export { cachedClient, db };
+export { cachedClient as client, db };
