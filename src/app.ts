@@ -4,14 +4,11 @@ import helmet from 'helmet';
 import cors from 'cors';
 
 import * as middlewares from './middlewares';
+import 'dotenv/config';
 
 import indexApi from './api';
 
 import MessageResponse from './interfaces/MessageResponse';
-
-
-
-require('dotenv').config();
 
 const app = express();
 

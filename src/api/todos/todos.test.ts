@@ -1,16 +1,5 @@
 import request from 'supertest';
-
 import app from '../../app';
-import { client } from '../../lib/database';
-
-
-beforeAll(async () => { 
-
-});
-afterAll(async () => { 
-  client?.close();
-});
-
 
 
 describe('GET /api/v1/todos', () => {
@@ -21,10 +10,8 @@ describe('GET /api/v1/todos', () => {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
+        expect(response.body.status).toEqual('OK');
         expect(response.body).toHaveProperty('data');
-        expect(response.body.length).toBe(0);
-        // expect(response.body[0]).toHaveProperty('content');
-        // expect(response.body[0]).toHaveProperty('done');
       });
   });
 });

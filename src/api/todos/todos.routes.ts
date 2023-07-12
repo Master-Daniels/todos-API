@@ -8,16 +8,24 @@ const router = Router();
 
 interface TodoResponse extends MesssageResponse {
   length: number;
-  data: TodoWithId[];
+  data: TodoWithId[] | string;
 }
 
 router.get('/', async (request: Request, response: Response<TodoResponse>) => {
   const result = await Todos.find({}).toArray();
+  if (result.length > 0) {
+    response.json({
+      status: 'OK',
+      message: 'Successful',
+      length: result.length,
+      data: result,
+    });
+  }
   response.json({
     status: 'OK',
     message: 'Successful',
     length: result.length,
-    data: result,
+    data: 'No data found!',
   });
 });
 
