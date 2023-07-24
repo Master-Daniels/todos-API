@@ -15,6 +15,6 @@ type Todo = zod.infer<typeof Todo>;
 type TodoWithId = WithId<Todo>;
 
 // Todos collection based on the Todo type
-const Todos = db.collection<TodoWithId>('todos');
+const Todos = db.collection<Todo>('todos');
 
-export { Todos, TodoWithId };
+export { Todos, TodoWithId, Todo };
